@@ -1,0 +1,22 @@
+import type { Metadata } from 'next';
+import './globals.css';
+
+export const metadata: Metadata = {
+  title: 'Marc Eldrian Gelera | Safety Officer · Computer Engineer',
+  description: 'Portfolio of Marc Eldrian L. Gelera — BS Computer Engineering student at Bulacan State University, Safety Officer 2, and Technical Support Specialist.',
+  keywords: ['Marc Eldrian Gelera','Computer Engineering','Safety Officer 2','BulSU','Technical Support','Embedded Systems','Portfolio'],
+  authors: [{ name: 'Marc Eldrian L. Gelera' }],
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+      </head>
+      <body>{children}</body>
+    </html>
+  );
+}
