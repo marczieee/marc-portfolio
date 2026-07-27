@@ -4,8 +4,7 @@ import { motion, useInView } from 'framer-motion';
 import { Zap, Brain } from 'lucide-react';
 
 const TECH = [
-  { name:'Occupational Safety & Health', pct:90 },
-  { name:'Risk Assessment / HIRAC',       pct:86 },
+  { name:'Occupational Safety & Health', pct:85 },
   { name:'Hardware Troubleshooting',      pct:88 },
   { name:'PCB Design & Etching',          pct:80 },
   { name:'Embedded Systems / Arduino',    pct:83 },
