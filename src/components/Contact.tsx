@@ -7,11 +7,30 @@ export default function Contact() {
   const ref = useRef(null);
   const inView = useInView(ref, { once:true, margin:'-80px' });
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState('');
   const [form, setForm] = useState({ name:'', email:'', subject:'', message:'' });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSent(true);
+    setSending(true);
+    setError('');
+    try {
+      const res = await fetch('https://formspree.io/f/mzdnqbbb', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+      if (res.ok) {
+        setSent(true);
+      } else {
+        setError('Something went wrong. Please try again or email me directly.');
+      }
+    } catch {
+      setError('Something went wrong. Please try again or email me directly.');
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -102,10 +121,13 @@ export default function Contact() {
                       placeholder="Tell me about the opportunity or project..."
                       value={form.message} onChange={e => setForm({...form, message:e.target.value})}/>
                   </div>
-                  <motion.button type="submit"
-                    whileHover={{ scale:1.01 }} whileTap={{ scale:0.98 }}
-                    className="w-full py-3.5 rounded-xl btn-red font-bold flex items-center justify-center gap-2 text-sm">
-                    <Send size={15}/> Send Message
+                  {error && (
+                    <p className="text-sm" style={{ color:'var(--red)' }}>{error}</p>
+                  )}
+                  <motion.button type="submit" disabled={sending}
+                    whileHover={{ scale: sending ? 1 : 1.01 }} whileTap={{ scale: sending ? 1 : 0.98 }}
+                    className="w-full py-3.5 rounded-xl btn-red font-bold flex items-center justify-center gap-2 text-sm disabled:opacity-60">
+                    <Send size={15}/> {sending ? 'Sending...' : 'Send Message'}
                   </motion.button>
                 </form>
               )}
